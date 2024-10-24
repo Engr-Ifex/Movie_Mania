@@ -2,6 +2,7 @@ const backdrop = document.getElementById('backdrop');
 const title = document.getElementById('title');
 const genres = document.getElementById('genres');
 const overview = document.getElementById('overview');
+const fullDetailsButton = document.querySelector('#backdroptext button');
 const API_KEY = '8414c7fb9625be12b92527710f830449';
 const ADVENTURE_API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=12&page=5`;
 const ADVENTURE2_API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&with_genres=12&page=3`;
@@ -48,14 +49,19 @@ function preloadImageAndSetBackground(imageUrl, movie) {
 }
 
 function changeBackdrop() {
-  if (movies.length === 0) return; // Ensure movies array is not empty
-  const currentMovie = movies[currentIndex]; // Get the current movie
+  if (movies.length === 0) return;
+  const currentMovie = movies[currentIndex];
   const imageUrl = `https://image.tmdb.org/t/p/w1280${currentMovie.backdrop_path}`;
-  
-  preloadImageAndSetBackground(imageUrl, currentMovie); // Pass current movie to function
+
+  currentMovieId = currentMovie.id; 
+
+  preloadImageAndSetBackground(imageUrl, currentMovie);
+
+  fullDetailsButton.onclick = () => {
+    window.location.href = `details.html?movieId=${currentMovieId}`;
+  };
 
   currentIndex = (currentIndex + 1) % movies.length;
-
   setTimeout(changeBackdrop, 4000);
 }
 
@@ -81,10 +87,19 @@ function moviesGenres(movies) {
     `
       <div id="genres">
         <div class="trend" key="${movie.id}">
-        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"
+        onclick="openDetailsPage(${movie.id})"
+        >
         <p>Release date: ${movie.release_date}</p>
         </div>
       </div>
     `
   ).join('')
 }
+
+
+function openDetailsPage(movieId) {
+  window.location.href = `details.html?movieId=${movieId}`;
+}
+
+

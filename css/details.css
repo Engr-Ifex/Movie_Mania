@@ -30,16 +30,16 @@ body{
 }
 .nava {
     color: #BFBFBF;
+    /* background-color: aliceblue; */
     padding: 10px 15px 10px 15px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 .navbar p{
     color: #BFBFBF;
     padding: 10px 15px 10px 15px;
     cursor: pointer;
 }
-.nava:hover, .nav.active{
+.nava:hover{
     background-color: #1F1F1F ;
     border-radius: 5px;
     color: white;
@@ -113,7 +113,7 @@ body{
     z-index: 10;
     position: absolute;
     bottom: 0;
-    text-align: center;
+    text-align: left;
     margin-bottom: 50px;
     max-width: 1000px;
 }
@@ -141,6 +141,95 @@ body{
 #backdroptext button:hover{
     opacity: 0.7;
 }
+
+.moviedetails{
+    display: flex;
+    max-width: 1200px;
+    color: white;
+    margin: 0 auto;
+    margin-top: 100px ;
+}
+.describe{
+    width: 900px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color: #1A1A1A;
+    padding: 40px;
+    font-size: 14px;
+    border: 1px solid #262626;
+    border-radius: 10px;
+}
+.describe h3{
+    color: #999999;
+    padding-bottom: 15px;
+}
+.casts{
+    width: 900px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color: #1A1A1A;
+    padding: 40px;
+    border: 1px solid #262626;
+    border-radius: 10px;
+    font-size: 10px;
+}
+#cast{
+    display: flex;
+}
+.casts h2{
+    color: #999999;
+    padding-bottom: 15px;
+}
+#cast img{
+    width: 98px;
+    margin-right: 5px;
+    height: 98px;
+    border-radius: 20px;
+    object-fit: cover;
+}
+#trailer iframe{
+    width: 900px;
+    height: 400px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    background-color: #1A1A1A;
+    padding: 40px;
+    border: 1px solid #262626;
+    border-radius: 10px;
+}
+#otherDetails{
+    width: 480px;
+    height: 900px;
+    background-color: #1A1A1A;
+    padding: 40px;
+    border: 1px solid #262626;
+    border-radius: 10px;
+}
+#otherDetails p{
+    padding-bottom: 20px;
+}
+#otherDetails h3{
+    color: #999999;
+}
+.rate{
+    display: flex;
+}
+#star-rating {
+    color: #E50000;
+    font-size: 1.5rem; 
+    margin-right: 5px;
+  }
+#ratings{
+    margin-top: 7px;
+}
+
+
+
+
+
+
+
+
 .container{
  padding: 100px 50px 50px 50px;
  position: relative;

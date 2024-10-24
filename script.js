@@ -1,77 +1,3 @@
-// const backdrop = document.getElementById('backdrop');
-// const title = document.getElementById('title');
-// const overview = document.getElementById('overview');
-// const backdroptext = document.getElementById('backdroptext')
-// const API_KEY = '8414c7fb9625be12b92527710f830449';
-// const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=1`;
-// const TREND_URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}&page=1`
-
-// let currentIndex = 0;
-// let backdrops = [];
-
-// fetch(API_URL)
-//  .then(response => {
-//     if(!response.ok){
-//         throw new Error('Network response not ok')
-//     }
-//     return response.json();
-//  })
-//  .then(data => {
-//     console.log('discover', data.results);
-//     backdrops = data.results.map(movie => movie.backdrop_path);
-//     movies = data.result
-//     changeBackdrop();
-//     // displayMovies(data.results)
-//  })
-//  .catch(error => {
-//     console.error('Error in fetching movie', error)
-//  })
-
-
-//  function preloadImageAndSetBackground(imageUrl, movie) {
-//     const img = new Image();
-//     img.src = imageUrl;
-    
-    
-
-//     img.onload = () => {
-//       backdrop.style.backgroundImage = `url(${imageUrl})`;
-//       title.textContent = movie.title
-//       overview.textContent = movie.overview;
-//     };
-//   }
-
-//  function changeBackdrop(){
-//     // if(backdrops.length === 0) 
-//     //     return;
-//     const imageUrl = `https://image.tmdb.org/t/p/w1280${backdrops[currentIndex]}`;
-//     preloadImageAndSetBackground(imageUrl);
-
-//     currentIndex = (currentIndex + 1) % backdrops.length;
-
-//     setTimeout(changeBackdrop, 4000)
-//  }
-// // function displayMovies(movies){
-// //     backdroptext.innerHTML = movies.map(movie => 
-// //         `
-// //         <div id="backdroptext">
-// //                 <h1>${movie.title}</h1>
-// //                 <p>${movie.overview}</p>
-// //             </div>
-// //         `
-// //     ).join('');
-// // }
-
-
-
-
-
-
-
-
-
-
-
 const backdrop = document.getElementById('backdrop');
 const title = document.getElementById('title');
 const overview = document.getElementById('overview');
@@ -81,6 +7,9 @@ const action = document.getElementById('action');
 const adventure =document.getElementById('adventure');
 const drama = document.getElementById('drama')
 const horror = document.getElementById('horror');
+const fullDetailsButton = document.querySelector('#backdroptext button');
+const navLinks = document.querySelectorAll('.nava');
+const currentPath = window.location.pathname;
 const API_KEY = '8414c7fb9625be12b92527710f830449';
 const API_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=1`;
 const TREND_URL = `https://api.themoviedb.org/3/trending/movie/day?api_key=${API_KEY}&page=2`
@@ -93,7 +22,19 @@ const HORROR_URL = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KE
 
 
 let currentIndex = 0;
-let movies = []; // Store entire movie objects
+let movies = []; 
+
+
+navLinks.forEach(link => {
+  const linkPath = new URL(link.href).pathname;
+  const linkFileName = linkPath.substring(linkPath.lastIndexOf('/') + 1);
+  const currentFileName = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+  if (linkFileName === currentFileName) {
+    link.classList.add('active');
+  }
+});
+
+
 
 fetch(API_URL)
   .then(response => {
@@ -134,18 +75,24 @@ function preloadImageAndSetBackground(imageUrl, movie) {
   };
 }
 
+let currentMovieId = null; 
+
 function changeBackdrop() {
-  if (movies.length === 0) return; // Ensure movies array is not empty
-  const currentMovie = movies[currentIndex]; // Get the current movie
+  if (movies.length === 0) return;
+  const currentMovie = movies[currentIndex];
   const imageUrl = `https://image.tmdb.org/t/p/w1280${currentMovie.backdrop_path}`;
-  
-  preloadImageAndSetBackground(imageUrl, currentMovie); // Pass current movie to function
+
+  currentMovieId = currentMovie.id; 
+
+  preloadImageAndSetBackground(imageUrl, currentMovie);
+
+  fullDetailsButton.onclick = () => {
+    window.location.href = `details.html?movieId=${currentMovieId}`;
+  };
 
   currentIndex = (currentIndex + 1) % movies.length;
-
   setTimeout(changeBackdrop, 4000);
 }
-
 
 
 
@@ -174,7 +121,9 @@ function trendingMovies(movies) {
     `
       <div id="trending">
         <div class="trend" key="${movie.id}">
-        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"
+        onclick="openDetailsPage(${movie.id})"
+        >
         <p>Popularity: ${movie.popularity}</p>
         </div>
       </div>
@@ -211,7 +160,9 @@ function newReleaseMovies(movies) {
     `
       <div id="newRelease">
         <div class="trend" key="${movie.id}">
-        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"
+        onclick="openDetailsPage(${movie.id})"
+        >
         <p>Release date: ${movie.release_date}</p>
         </div>
       </div>
@@ -245,7 +196,9 @@ function actionMovies(movies) {
     `
       <div id="action">
         <div class="trend" key="${movie.id}">
-        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"
+        onclick="openDetailsPage(${movie.id})"
+        >
         <p>Release date: ${movie.release_date}</p>
         </div>
       </div>
@@ -279,7 +232,9 @@ function adventureMovies(movies) {
     `
       <div id="adventure  ">
         <div class="trend" key="${movie.id}">
-        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"
+        onclick="openDetailsPage(${movie.id})"
+        >
         <p>Release date: ${movie.release_date}</p>
         </div>
       </div>
@@ -312,7 +267,9 @@ function comedyMovies(movies) {
     `
       <div id="comedy">
         <div class="trend" key="${movie.id}">
-        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"
+        onclick="openDetailsPage(${movie.id})"
+        >
         <p>Release date: ${movie.release_date}</p>
         </div>
       </div>
@@ -346,7 +303,9 @@ function dramaMovies(movies) {
     `
       <div id="drama">
         <div class="trend" key="${movie.id}">
-        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"
+        onclick="openDetailsPage(${movie.id})"
+        >
         <p>Release date: ${movie.release_date}</p>
         </div>
       </div>
@@ -380,7 +339,9 @@ function horrorMovies(movies) {
     `
       <div id="horror">
         <div class="trend" key="${movie.id}">
-        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+        <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}"
+        onclick="openDetailsPage(${movie.id})"
+        >
         <p>Release date: ${movie.release_date}</p>
         </div>
       </div>
@@ -388,6 +349,10 @@ function horrorMovies(movies) {
   ).join('')
 }
 
+
+function openDetailsPage(movieId) {
+  window.location.href = `details.html?movieId=${movieId}`;
+}
 
 
 
