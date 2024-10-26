@@ -103,3 +103,81 @@ if (movieId) {
     })
     .catch(error => console.error('Error fetching movie trailer:', error));
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Details page JavaScript
+const addToWatchlistBtn = document.getElementById('addToWatchlistBtn');
+
+if (movieId) {
+    fetch(`${MOVIE_API_URL}${movieId}?api_key=${API_KEY}`)
+        .then(response => response.json())
+        .then(movie => {
+            displayMovieDetails(movie);
+
+            // Add event listener to "Add to Watchlist" button
+            addToWatchlistBtn.addEventListener('click', () => addToWatchlist(movie));
+        })
+        .catch(error => {
+            console.error('Error fetching movie details:', error);
+        });
+}
+
+function addToWatchlist(movie) {
+    const watchlist = JSON.parse(localStorage.getItem('watchlist')) || [];
+
+    // Check if the movie is already in the watchlist
+    const isAlreadyInWatchlist = watchlist.some(watchlistMovie => watchlistMovie.id === movie.id);
+    
+    if (!isAlreadyInWatchlist) {
+        // Add the movie to the watchlist
+        watchlist.push({
+            id: movie.id,
+            title: movie.title,
+            poster_path: movie.poster_path,
+            overview: movie.overview,
+            release_date: movie.release_date,
+            runtime: movie.runtime
+        });
+
+        // Save the updated watchlist to localStorage
+        localStorage.setItem('watchlist', JSON.stringify(watchlist));
+
+        // Show a custom alert for success
+        showAlert(`${movie.title} has been added to your watchlist!`, 'success');
+    } else {
+        showAlert(`${movie.title} is already in your watchlist.`, 'error');
+    }
+}
+
+
+function showAlert(message, type) {
+  const alertBox = document.createElement('div');
+  alertBox.className = `alert ${type}`;
+  alertBox.textContent = message;
+
+  document.body.appendChild(alertBox);
+
+  setTimeout(() => {
+    alertBox.remove();
+  }, 3000); // Remove after 3 seconds
+}

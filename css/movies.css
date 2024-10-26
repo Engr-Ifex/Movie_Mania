@@ -24,7 +24,7 @@ body{
     padding: 15px;
     border: 3px solid #1F1F1F ;
     border-radius: 5px;
-    margin-left: -150px;
+    /* margin-left: -150px; */
     cursor: pointer;
     display: flex;
 }
@@ -50,6 +50,7 @@ body{
     background-color: #1F1F1F ;
     border-radius: 5px;
     display: none;
+    z-index: 99;
 }
 .dropdown a{
  color: white;
@@ -82,6 +83,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     height: 550px;
     max-width: 1200px;
     margin: 0 auto;
@@ -92,16 +94,20 @@ body{
     background-position: center;
     transition: background-image 1.5s ease-in-out;
     color: white;
+    position: relative;
+    overflow: hidden;
 }
 .gradient{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 550px;
-    max-width: 1200px;
-    margin: 0 auto;
     border-radius: 10px;
-    width: 100%;
+    z-index: 1;
 }
 .gradient img{
     width: 100%;
@@ -110,15 +116,19 @@ body{
     border-radius: 10px;
 }
 #backdroptext{
-    z-index: 10;
-    position: absolute;
-    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    margin-bottom: 50px;
+    margin-top: 250px;
     max-width: 1000px;
+    padding: 20px;
+    border-radius: 5px;
 }
 #title, #overview{
     transition: opacity 0.5s ease;
+    z-index: 2;
 }
 #title{
     font-size: 35px;
@@ -137,6 +147,7 @@ body{
     padding: 15px;
     border-radius: 5px;
     cursor: pointer;
+    z-index: 2;
 }
 #backdroptext button:hover{
     opacity: 0.7;
