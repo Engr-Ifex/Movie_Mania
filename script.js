@@ -25,14 +25,14 @@ let currentIndex = 0;
 let movies = []; 
 
 
-navLinks.forEach(link => {
-  const linkPath = new URL(link.href).pathname;
-  const linkFileName = linkPath.substring(linkPath.lastIndexOf('/') + 1);
-  const currentFileName = currentPath.substring(currentPath.lastIndexOf('/') + 1);
-  if (linkFileName === currentFileName) {
-    link.classList.add('active');
-  }
-});
+// navLinks.forEach(link => {
+//   const linkPath = new URL(link.href).pathname;
+//   const linkFileName = linkPath.substring(linkPath.lastIndexOf('/') + 1);
+//   const currentFileName = currentPath.substring(currentPath.lastIndexOf('/') + 1);
+//   if (linkFileName === currentFileName) {
+//     link.classList.add('active');
+//   }
+// });
 
 
 
@@ -356,6 +356,19 @@ function openDetailsPage(movieId) {
 
 
 
+const ham = document.getElementById('ham');
+const resnav = document.getElementById('resnav');
+const closeBtn = document.getElementById('resbtn');
+
+
+ham.addEventListener('click', () => {
+  resnav.classList.add('active');
+});
+
+
+closeBtn.addEventListener('click', () => {
+  resnav.classList.remove('active');
+});
 
 
 
@@ -371,22 +384,3 @@ function openDetailsPage(movieId) {
 
 
 
-
-// function displayMovies(movies){
-//     backdrop.innerHTML = movies.map(movie =>
-//         `
-//         <div id="backdrop">
-//         <img src="https://image.tmdb.org/t/p/w1280${movie.backdrop_path}" alt="${movie.title}">
-//         </div>
-
-//         `
-//     ).join('');
-// }
-
-// function displayMovies(movies){
-//     title.innerHTML = movies.map(movie => `
-//         <div id="title">
-//         <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="">
-//         </div>
-//         `).join('')
-// }

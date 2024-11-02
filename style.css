@@ -15,19 +15,23 @@ body{
     height: 100vh;
     background-image: url(./images/Container.png);
     object-fit: cover;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
 }
 .navbar{
     background-color: #0F0F0F;
     padding: 15px;
     border: 3px solid #1F1F1F ;
     border-radius: 5px;
-    margin-left: -150px;
     cursor: pointer;
     display: flex;
 }
 .nava {
     color: #BFBFBF;
-    /* background-color: aliceblue; */
     padding: 10px 15px 10px 15px;
     cursor: pointer;
 }
@@ -65,9 +69,10 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1200px; 
     margin: 0 auto;
     padding-top: 15px;
+    gap: 300px;
 }
 .searchanchor{
     color: #BFBFBF;
@@ -77,8 +82,9 @@ body{
 }
 .herotext{
     color: white;
-    /* position: fixed;
-    bottom: 0; */
+    position: absolute;
+    bottom: 20px; 
+    /* transform: translateX(15%); */
     text-align: center;
     max-width: 1000px;
     margin: 0 auto;
@@ -104,15 +110,16 @@ body{
     opacity: 0.7;
 }
 .middlelogo{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 400px;
+    position: absolute;
+    top: 40%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
 }
 
 
 .secondhero{
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -122,11 +129,14 @@ body{
     color: white;
     /* padding: 50px; */
     text-align: center;
+    min-height: 100vh;
+    height: auto;
 }
 .secondhero h1{
     font-size: 35px;
     line-height: 1.2;
     padding-bottom: 5px;
+    padding-top: 10px;
 }
 .secondhero p{
     font-size: 13px;
@@ -135,10 +145,7 @@ body{
 .secondherotext{
     margin-bottom: 50px;
 }
-/* .genrecards {
-    display: grid;
-    flex-direction: column;
-} */
+
 .genrecards img{
     width: 250px;
     padding: 20px;
@@ -228,8 +235,130 @@ hr{
     height: 1px;
     color: #999999;
 }
+.res{
+    display: none;
+}
 
 
+
+
+
+
+
+
+
+
+
+@media(max-width: 900px){
+    .hero{
+        display: block;
+        justify-content: center;
+        align-items: center;
+    }
+    .res{
+        display: block;
+        /* margin: 0px 10px 0px 10px; */
+    }
+    .norm{
+        display: none;
+    }
+    .herotext{
+        transform: translateX(15%);
+
+    }
+    .resnav{
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        gap: 50px;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .active{
+        display: flex;
+    }
+    .resnav button{
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 30px;
+        color: white;
+        background-color: transparent;
+        border: none;
+        font-size: 30px;
+        padding: 5px;
+        cursor: pointer;
+    }
+    .topsection i{
+        font-size: 25px;
+        margin-right: 20px;
+        color: white;
+    }
+    .restop{
+        display: flex;
+        justify-content: space-between;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    .restop i{
+        cursor: pointer;
+    }
+}
+
+
+
+@media(max-width: 700px){
+    
+    .herotext{
+        transform: translateX(0%);
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+    .middlelogo img{
+        width: 200px;
+    }
+   .secondhero{
+    height: 100%;
+    display: block;
+    padding-top: 50px;
+    
+   }
+   .secondhero h1{
+    font-size: 30px;
+    margin-right: 20px;
+    margin-left: 20px;
+   }
+   .secondhero p{
+    margin-right: 20px;
+    margin-left: 20px;
+   }
+   .footertext{
+    display: grid;
+    grid-template-columns: 100px 100px;
+   }
+   /* .thirdhero{
+    display: block;
+   }
+   .thirdhero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    height: 100px;
+}
+
+.trial {
+    width: 100%;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+} */
+}
 
 
 

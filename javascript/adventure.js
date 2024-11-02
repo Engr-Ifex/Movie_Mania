@@ -103,3 +103,16 @@ function openDetailsPage(movieId) {
 }
 
 
+const ham = document.getElementById('ham');
+const resnav = document.getElementById('resnav');
+const closeBtn = document.getElementById('resbtn');
+
+
+ham.addEventListener('click', () => {
+  resnav.classList.add('active');
+});
+
+
+closeBtn.addEventListener('click', () => {
+  resnav.classList.remove('active');
+});
